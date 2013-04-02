@@ -8,7 +8,7 @@ __author__ = 'jmahmood'
 import sys
 
 # Redis requires both CR and LF, regardless of the OS, for its protocol.
-REDIS_PROTOCOL_LINEENDING = "\r\n"
+REDIS_PROTOCOL_EOL = "\r\n"
 
 class RedisProtocol:
     """ Constructor arg can be:
@@ -40,7 +40,7 @@ class RedisProtocol:
         self.ostream.write(v)
 
     def setup_output(self, arg_len):
-        self.output("*%d%s" % (arg_len, REDIS_PROTOCOL_LINEENDING))
+        self.output("*%d%s" % (arg_len, REDIS_PROTOCOL_EOL))
 
     def write(self, val):
         try:
@@ -48,4 +48,4 @@ class RedisProtocol:
         except AttributeError:
             val = str(val)
 
-        self.output("""$%d%s%s%s""" % (len(val), REDIS_PROTOCOL_LINEENDING, val, REDIS_PROTOCOL_LINEENDING))
+        self.output("""$%d%s%s%s""" % (len(val), REDIS_PROTOCOL_EOL, val, REDIS_PROTOCOL_EOL))
