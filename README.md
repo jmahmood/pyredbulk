@@ -26,6 +26,8 @@ hmset
 
 - If you are using a generator for the dicts array, this should ideally take very little memory, as the actual dict itself will only contain the information for that line, and it will be then saved immediately to the database.
 
+(If you are having problems with the Japanese insertion above, try running it in iPython or creating a script to run it; the regular Python repl sometimes gives me problems with Japanese input.)
+
 Why?
 ----
 
