@@ -8,10 +8,10 @@
 # Only requires the logging function.
 __author__ = 'jmahmood'
 import logging
-from .base import redis_protocol
+from .base import RedisProtocol
 
 
-class hmset(redis_protocol):
+class Hmset(RedisProtocol):
     """
     hashname_fn = lambda d: d.get("name")
     dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
@@ -46,9 +46,8 @@ class hmset(redis_protocol):
 
             #arg_len = COMMAND + HASHNAME + 2 * key_len (a key has a key + val, thus 2 entries)
             self.setup_output(2 * len(d) + 2)
-            self.append("HMSET")
-            self.append(hash_name_fn(d))
+            self.write("HMSET")
+            self.write(hash_name_fn(d))
             for k, v in d.iteritems():
-                self.append(k)
-                self.append(v)
-            self.write()
+                self.write(k)
+                self.write(v)
