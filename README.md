@@ -22,6 +22,9 @@ hmset
     with hmset("/tmp/test.txt") as redis_insert:
       redis_insert(hashname_fn, dicts)
 
+    # From prompt
+    # cat /tmp/test.txt | redis-cli --pipe
+
 - If your data is in tuples, you can try creating a new class by overriding the "hmset" class; the append files will try to take care of making sure data is in UTF8 when it is being passed to the text file.
 
 - If you are using a generator for the dicts array, this should ideally take very little memory, as the actual dict itself will only contain the information for that line, and it will be then saved immediately to the database.
