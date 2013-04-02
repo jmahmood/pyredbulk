@@ -14,6 +14,8 @@ from .base import RedisProtocol
 
 class Hmset(RedisProtocol):
     """
+    from pyredbulk import hmset
+
     hashname_fn = lambda d: d.get("name")
     dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
             {"name": "france", "capital": "paris", "population": 50000000},
@@ -26,19 +28,9 @@ class Hmset(RedisProtocol):
 
     """
 
-    def __call__(self, *args, **kwargs):
-        if kwargs.get("fn"):
-            hash_name_fn = kwargs["fn"]
-        else:
-            hash_name_fn = args[0]
-
+    def __call__(self, hash_name_fn, dicts, *args, **kwargs):
         if not hasattr(hash_name_fn, '__call__'):
             raise IOError("You must pass a function that will generate your python dict's Redis hashname")
-
-        if kwargs.get("dicts"):
-            dicts = kwargs["dicts"]
-        else:
-            dicts = args[1]
 
         for d in dicts:
             if not self.validate(d):
