@@ -1,1 +1,1 @@
-from hmset import hmset
+from hmset import Hmset as hmset

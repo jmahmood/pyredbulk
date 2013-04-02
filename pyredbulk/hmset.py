@@ -6,6 +6,7 @@
 # are logged and not added to the text output.
 #
 # Only requires the logging function.
+
 __author__ = 'jmahmood'
 import logging
 from .base import RedisProtocol

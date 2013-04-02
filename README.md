@@ -26,6 +26,8 @@ hmset
 
 - If you are using a generator for the dicts array, this should ideally take very little memory, as the actual dict itself will only contain the information for that line, and it will be then saved immediately to the database.
 
+- If you would like to direct the output to stdout, set the filename to a falsy value.
+
 Why?
 ----
 

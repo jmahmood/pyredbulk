@@ -34,10 +34,10 @@ class RedisProtocol:
         if self.filename:
             self.file.write(v)
         else:
-            sys.stdout(v)
+            sys.stdout.write(v)
 
     def setup_output(self, arg_len):
-        self.output("*%d" % arg_len)
+        self.output("*%d%s" % (arg_len, REDIS_PROTOCOL_LINEENDING))
 
     def write(self, val):
         try:
