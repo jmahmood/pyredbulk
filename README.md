@@ -11,22 +11,27 @@ How?
 
 hmset
 -----
-  from pyredbulk import hmset
+    from pyredbulk import hmset
 
-  hashname_fn = lambda d: d.get("name")
-  dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
-           {"name": "france", "capital": "paris", "population": 50000000},
-           {"name": "usa", "capital": "washington", "population": 300000000},
-           {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
+    hashname_fn = lambda d: d.get("name")
+    dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
+             {"name": "france", "capital": "paris", "population": 50000000},
+             {"name": "usa", "capital": "washington", "population": 300000000},
+             {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
 
-  with hmset("/tmp/test.txt") as redis_insert:
-    redis_insert(hashname_fn, dicts)
+    with hmset("/tmp/test.txt") as redis_insert:
+      redis_insert(hashname_fn, dicts)
+
+    # From prompt
+    # cat /tmp/test.txt | redis-cli --pipe
 
 - If your data is in tuples, you can try creating a new class by overriding the "hmset" class; the append files will try to take care of making sure data is in UTF8 when it is being passed to the text file.
 
 - If you are using a generator for the dicts array, this should ideally take very little memory, as the actual dict itself will only contain the information for that line, and it will be then saved immediately to the database.
 
 - If you would like to direct the output to stdout, set the filename to a falsy value.
+
+- If you are having problems with the Japanese insertion above, try running it in iPython or creating a script to run it; the regular Python repl sometimes gives me problems with Japanese input.
 
 Why?
 ----
@@ -37,6 +42,9 @@ You should be able to use this without having Redis on the server running the co
 
 The main purpose for this is to use with very large datasets that need to be inserted onto your redis server.  I have to move large amounts of data from MySQL to an in-memory Redis DB, for which I wrote this tool.  I hope you find it helpful.
 
+
+License
+=======
 
 Copyright (c) 2013 Jawaad Mahmood
 
