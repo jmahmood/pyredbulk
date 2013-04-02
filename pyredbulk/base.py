@@ -5,7 +5,6 @@
 #
 # Only requires the logging function.
 __author__ = 'jmahmood'
-import logging
 import sys
 
 # Redis requires both CR and LF, regardless of the OS, for its protocol.
