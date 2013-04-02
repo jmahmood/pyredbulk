@@ -20,13 +20,10 @@ class Hmset(RedisProtocol):
     dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
             {"name": "france", "capital": "paris", "population": 50000000},
             {"name": "usa", "capital": "washington", "population": 300000000},
-            {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}
-    ]
+            {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
 
     with hmset("/tmp/test.txt") as redis_insert:
-        redis_insert(hashname_fn, dicts)
-
-    """
+        redis_insert(hashname_fn, dicts)"""
 
     def __call__(self, hash_name_fn, dicts, *args, **kwargs):
         if not hasattr(hash_name_fn, '__call__'):
