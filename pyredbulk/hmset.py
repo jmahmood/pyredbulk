@@ -29,15 +29,15 @@ class Hmset(RedisProtocol):
         if not hasattr(hash_name_fn, '__call__'):
             raise IOError("You must pass a function that will generate your python dict's Redis hashname")
 
-        for d in dicts:
-            if not self.validate(d):
-                logging.error(d)
-                raise IOError("Failure while validating dictionary: %s" % hash_name_fn(d))
+        for input_dict in dicts:
+            if not self.validate(input_dict):
+                logging.error(input_dict)
+                raise IOError("Failure while validating dictionary: %s" % hash_name_fn(input_dict))
 
             #arg_len = COMMAND + HASHNAME + 2 * key_len (a key has a key + val, thus 2 entries)
-            self.setup_output(2 * len(d) + 2)
+            self.setup_output(2 * len(input_dict) + 2)
             self.write("HMSET")
-            self.write(hash_name_fn(d))
-            for k, v in d.iteritems():
+            self.write(hash_name_fn(input_dict))
+            for k, v in input_dict.iteritems():
                 self.write(k)
                 self.write(v)
