@@ -42,6 +42,9 @@ You should be able to use this without having Redis on the server running the co
 
 The main purpose for this is to use with very large datasets that need to be inserted onto your redis server.  I have to move large amounts of data from MySQL to an in-memory Redis DB, for which I wrote this tool.  I hope you find it helpful.
 
+Special Thanks
+--------------
+Thanks Kal and Janos who were kind enough to look at my code so I didn't look like an idiot when releasing it.
 
 License
 =======
