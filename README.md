@@ -11,16 +11,16 @@ How?
 
 hmset
 -----
-  from pyredbulk import hmset
+    from pyredbulk import hmset
 
-  hashname_fn = lambda d: d.get("name")
-  dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
-           {"name": "france", "capital": "paris", "population": 50000000},
-           {"name": "usa", "capital": "washington", "population": 300000000},
-           {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
+    hashname_fn = lambda d: d.get("name")
+    dicts = [{"name": "canada", "capital": "ottawa", "population": 20000000},
+             {"name": "france", "capital": "paris", "population": 50000000},
+             {"name": "usa", "capital": "washington", "population": 300000000},
+             {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
 
-  with hmset("/tmp/test.txt") as redis_insert:
-    redis_insert(hashname_fn, dicts)
+    with hmset("/tmp/test.txt") as redis_insert:
+      redis_insert(hashname_fn, dicts)
 
 - If your data is in tuples, you can try creating a new class by overriding the "hmset" class; the append files will try to take care of making sure data is in UTF8 when it is being passed to the text file.
 
