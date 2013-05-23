@@ -6,6 +6,10 @@ In Python, generate a bulk insertion file for adding large amounts of data to Re
 Version: *0.1*
 Implements: _hmset_
 
+Installation
+============
+pip install pyredbulk
+
 How?
 ====
 
