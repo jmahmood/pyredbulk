@@ -30,7 +30,7 @@ class RedisProtocol:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.ostream.close()
 
-    def __call__(self, d):
+    def __call__(self, d, *args, **kwargs):
         pass
 
     def validate(self, d):

@@ -4,7 +4,7 @@ __author__ = 'jawaad'
 from distutils.core import setup
 
 setup(name='pyredbulk',
-      version='0.200',
+      version='0.250',
       description='Generate a bulk insertion file for adding large amounts of data to Redis.',
       author='Jawaad Mahmood',
       author_email='ideas@jawaadmahmood.com',

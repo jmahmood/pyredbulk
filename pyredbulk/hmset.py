@@ -23,21 +23,33 @@ class Hmset(RedisProtocol):
             {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
 
     with hmset("/tmp/test.txt") as redis_insert:
-        redis_insert(hashname_fn, dicts)"""
+        redis_insert(hashname_fn, dicts)
+
+
+    #
+    """
 
     def __call__(self, hash_name_fn, dicts, *args, **kwargs):
+        def output(d):
+            # arg_len = COMMAND + HASH_NAME + 2 * key_len (a key has a key + val, thus 2 entries)
+            if not self.validate(d):
+                raise IOError("HMSET ABORT: Failure while validating dictionary: %s\n%s" % (hash_name_fn(input_dict), repr(input_dict)))
+
+            self.setup_output(2 * len(d) + 2)
+            self.write("HMSET")
+            self.write(hash_name_fn(d))
+            for k, v in d.iteritems():
+                self.write(k)
+                self.write(v)
+
         if not hasattr(hash_name_fn, '__call__'):
             raise IOError("You must pass a function that will generate your python dict's Redis hashname")
 
-        for input_dict in dicts:
-            if not self.validate(input_dict):
-                logging.error(input_dict)
-                raise IOError("Failure while validating dictionary: %s" % hash_name_fn(input_dict))
+        if isinstance(dicts, dict):
+            output(dicts)
 
-            #arg_len = COMMAND + HASHNAME + 2 * key_len (a key has a key + val, thus 2 entries)
-            self.setup_output(2 * len(input_dict) + 2)
-            self.write("HMSET")
-            self.write(hash_name_fn(input_dict))
-            for k, v in input_dict.iteritems():
-                self.write(k)
-                self.write(v)
+        elif not hasattr(dicts, "strip") and hasattr(dicts, "__getitem__") or hasattr(dicts, "__iter__"):
+            map(output, dicts)
+
+        else:
+            raise IOError("You need to pass an /iterable/ or a /dict/ as the object you want to save.")
