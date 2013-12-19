@@ -10,6 +10,7 @@ import sys
 # Redis requires both CR and LF, regardless of the OS, for its protocol.
 REDIS_PROTOCOL_EOL = "\r\n"
 
+
 class RedisProtocol:
     """ Constructor arg can be:
         - falsy or omitted: write output to sys.stdout
