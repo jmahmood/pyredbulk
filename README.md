@@ -3,7 +3,7 @@ pyredbulk
 
 In Python, generate a bulk insertion file for adding large amounts of data to Redis.
 
-Version: *0.2*
+Version: *0.3*
 Implements: _hmset_
 
 Installation
