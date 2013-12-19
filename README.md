@@ -13,6 +13,20 @@ pip install pyredbulk
 How?
 ====
 
+sadd
+----
+    from pyredbulk import sadd
+
+    girlfriends = [("John", "Jill", "Janet"), ("Billy", "Haley", "Janet")]
+
+    with sadd("/tmp/test.txt") as redis_insert:
+        redis_insert(girlfriends)
+
+    # From prompt
+    # cat /tmp/test.txt | redis-cli --pipe
+
+- Currently set to deal with data in tuples, but that is likely to change to sets in the future.
+
 hmset
 -----
     from pyredbulk import hmset
