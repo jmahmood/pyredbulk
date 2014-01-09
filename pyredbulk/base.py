@@ -16,7 +16,7 @@ class RedisProtocol:
         - falsy or omitted: write output to sys.stdout
         - path (string): write output to the specified file
         - stream: write output to the given stream"""
-    def __init__(self, ostream=None):
+    def __init__(self, ostream=None, *args, **kwargs):
         if ostream:
             if type(ostream) is str:
                 self.ostream = open(ostream, "w")

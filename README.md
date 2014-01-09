@@ -3,8 +3,8 @@ pyredbulk
 
 In Python, generate a bulk insertion file for adding large amounts of data to Redis.
 
-Version: *0.3*
-Implements: _hmset_
+Version: *0.4*
+Implements: _hmset_, _hset_, _sadd_
 
 Installation
 ============
@@ -26,6 +26,20 @@ sadd
     # cat /tmp/test.txt | redis-cli --pipe
 
 - Currently set to deal with data in tuples, but that is likely to change to sets in the future.
+
+
+hset
+-----
+    from pyredbulk import hset
+
+    # HSET myhash field1 "Hello"
+
+    with hset("/tmp/test.txt") as redis_insert:
+        redis_insert("myhash", "field1", "Hello")
+
+    # From prompt
+    # cat /tmp/test.txt | redis-cli --pipe
+
 
 hmset
 -----
