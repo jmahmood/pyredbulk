@@ -21,10 +21,6 @@ class Hmset(RedisProtocol):
             {"name": "france", "capital": "paris", "population": 50000000},
             {"name": "usa", "capital": "washington", "population": 300000000},
             {"name": "ジャパン", "capital": "とうきょう", "population": 180000000}]
-
-    with hmset("/tmp/test.txt") as redis_insert:
-        redis_insert(hashname_fn, dicts)
-    #
     """
 
     def __call__(self, hash_name_fn, dicts, *args, **kwargs):
