@@ -26,9 +26,6 @@ class Hmset(RedisProtocol):
     def __call__(self, hash_name_fn, dicts, *args, **kwargs):
         def output(d):
             # arg_len = COMMAND + HASH_NAME + 2 * key_len (a key has a key + val, thus 2 entries)
-            if not self.validate(d):
-                raise IOError("HMSET ABORT: Failure while validating dictionary: %s\n%s" % (hash_name_fn(d), repr(d)))
-
             self.setup_output(2 * len(d) + 2)
             self.write("HMSET")
             self.write(hash_name_fn(d))

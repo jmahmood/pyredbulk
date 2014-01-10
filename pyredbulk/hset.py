@@ -8,7 +8,6 @@
 # Only requires the logging function.
 
 __author__ = 'jmahmood'
-import logging
 from .base import RedisProtocol
 
 
@@ -46,7 +45,6 @@ class Hset(RedisProtocol):
             self.write(tup[0])
             self.write(tup[1])
             self.write(tup[2])
-
         t = kwargs.get("tuples")
 
         if t and hash_name:
@@ -75,16 +73,24 @@ class Hset(RedisProtocol):
 
                 if kwargs["tuples"][0] is False:
                     raise IOError("You must pass a valid value for the hash name."
-                                  "You passed %s" % str(tuple[0]))
+                                  "You passed %s" % str(tuple))
 
                 if kwargs["tuples"][1] is False:
                     raise IOError("You must pass a valid value for the field."
-                                  "You passed %s" % str(tuple[1]))
+                                  "You passed %s" % str(tuple))
 
-            elif not hasattr(kwargs["tuples"], "strip") and \
-                    hasattr(kwargs["tuples"], "__getitem__") or hasattr(kwargs["tuples"], "__iter__"):
+            elif not hasattr(kwargs["tuples"], "strip") and  hasattr(kwargs["tuples"], "__getitem__") or hasattr(kwargs["tuples"], "__iter__"):
+                check = {}
                 for t in kwargs["tuples"]:
                     self.validate(tuples=t)
+                    if check.get(t[0]) and check.get(t[0]).get(t[1]):
+                        raise IOError("You are using the key twice in this insertion sequence.  This could lead to race conditions when inserting into redis.  Stop it.")
+                    else:
+                        if check.get(t[0]):
+                            check[t[0]][t[1]] = 1
+                        else:
+                            check[t[0]] = {t[1]:1}
+
 
         elif "hash_name" in kwargs:
             t = (kwargs.get("hash_name"), kwargs.get("field"), kwargs.get("value"))
